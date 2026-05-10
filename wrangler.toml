@@ -1,0 +1,24 @@
+name = "status-page"
+compatibility_date = "2024-05-09"
+main = "./build/worker.mjs"
+
+[build]
+command = "make build"
+
+[[rules]]
+type = "CompiledWasm"
+globs = ["**/*.wasm"]
+fallthrough = false
+
+[vars]
+# Define your servers here as a JSON string
+# Type can be "http", "palworld", "minecraft" etc.
+# URL should be the endpoint to check.
+SERVERS_JSON = """
+[
+  {"name": "Jellyfin", "type": "http", "url": "https://httpbin.org/status/200"},
+  {"name": "Minecraft", "type": "minecraft", "url": "https://httpbin.org/status/200"},
+  {"name": "Palworld", "type": "palworld", "url": "https://httpbin.org/status/200", "auth": "admin:password"},
+  {"name": "7 Days to Die", "type": "http", "url": "https://httpbin.org/status/200"}
+]
+"""
